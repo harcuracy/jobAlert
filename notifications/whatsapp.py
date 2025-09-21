@@ -1,11 +1,19 @@
-# notifications/whatsapp.py
+# whatsapp notification
+
+
 import os
 import csv
 import requests
-from db import mark_job_sent, job_already_sent, fetch_jobs
-from llm.formatter import get_llm_job_selection
-
 from dotenv import load_dotenv
+
+
+
+from db import mark_job_sent, job_already_sent, fetch_jobs
+from llm.job_selector import get_llm_job_selection
+from utils.helpers import read_students
+from utils.constant import DATA_PATH
+
+
 load_dotenv()
 
 WHATSAPP_TOKEN = os.getenv("WHATSAPP_TOKEN")
@@ -56,21 +64,7 @@ def send_whatsapp_message(phone_number, student_name, job1, job2):
         print(f"❌ Failed for {phone_number}: {response.text}")
 
 
-def read_students(csv_file="data/students.csv"):
-    students = []
-    with open(csv_file, newline="", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            students.append({
-                "name": row["name"],
-                "phone": row["phone"],
-                "department": row["department"],
-                "skills": row.get("skills", "")
-            })
-    return students
-
-
-def send_job_alerts(jobs, csv_file="data/students.csv"):
+def send_job_alerts(jobs, csv_file= DATA_PATH):
     students = read_students(csv_file)
 
     for student in students:

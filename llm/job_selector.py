@@ -5,48 +5,22 @@ import re
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain_groq import ChatGroq
+
+
 from db import job_already_sent
+from .prompt import job_selection_prompt
+from .model import get_groq_llm
 
-from dotenv import load_dotenv
-load_dotenv()
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
-# Initialize Groq LLM
-llm = ChatGroq(
-    model="deepseek-r1-distill-llama-70b",
-    temperature=0,
-    max_tokens=None,
-    reasoning_format="parsed",
-    timeout=None,
-    max_retries=2,
-    api_key=GROQ_API_KEY
-)
 
-# Prompt template: only pick 2 jobs and return JSON
-prompt_template = """
-You are a job recommendation engine.
+llm = get_groq_llm()
 
-Student name: {name}
-Department: {department}
-Skills: {skills}
 
-Available jobs:
-{jobs_text}
-
-Task:
-Select the **2 most relevant jobs** for this student.
-Return ONLY a JSON object in this format:
-
-{{
-  "job1": {{"title": "", "company": "", "location": "", "link": ""}},
-  "job2": {{"title": "", "company": "", "location": "", "link": ""}}
-}}
-"""
 
 prompt = PromptTemplate(
     input_variables=["name", "department", "skills", "jobs_text"],
-    template=prompt_template
+    template=job_selection_prompt
 )
 
 def parse_llm_json(raw_result):
