@@ -2,7 +2,7 @@
 import os
 from apify_client import ApifyClient
 from dotenv import load_dotenv
-from db import save_jobs
+from db.db import save_jobs
 
 load_dotenv()
 APIFY_TOKEN = os.getenv("APIFY_TOKEN")

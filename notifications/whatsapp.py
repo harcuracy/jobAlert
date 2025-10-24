@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 
 
-from db import mark_job_sent, job_already_sent, fetch_jobs
+from db.db import mark_job_sent, job_already_sent, fetch_jobs
 from llm.job_selector import get_llm_job_selection
 from utils.helpers import read_students
 from utils.constant import DATA_PATH

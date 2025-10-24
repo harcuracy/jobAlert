@@ -10,7 +10,7 @@ env/
 venv/
 
 # SQLite database
-jobs.db
+#jobs.db
 
 # dotenv environment variables
 .env

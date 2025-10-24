@@ -6,10 +6,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def get_groq_llm(
-    model="deepseek-r1-distill-llama-70b",
+    model="llama-3.3-70b-versatile",
     temperature=0,
     max_tokens=None,
-    reasoning_format="parsed",
     max_retries=2,
     timeout=None,
     api_key=None
@@ -22,7 +21,6 @@ def get_groq_llm(
         model=model,
         temperature=temperature,
         max_tokens=max_tokens,
-        reasoning_format=reasoning_format,
         timeout=timeout,
         max_retries=max_retries,
         api_key=api_key
