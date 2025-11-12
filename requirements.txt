@@ -41,8 +41,6 @@ langsmith==0.4.38
 markupsafe==3.0.3
 more-itertools==10.8.0
 mysql==0.0.3
-mysql-connector-python==9.5.0
-mysqlclient==2.2.7
 narwhals==2.9.0
 numpy==2.2.6
 orjson==3.11.3
